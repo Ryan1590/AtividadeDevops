@@ -27,13 +27,12 @@
         <div class="form-group">
           <label for="password">Senha:</label>
           <input type="password" id="password" name="password" class="form-control" required>
+          <div id="password-requirements" class="invalid-feedback">A senha deve conter pelo menos uma letra maiúscula, <br> um número, um caractere especial e 8 caracteres.</div>
         </div>
         <div class="form-group">
           <label for="confirm-password">Confirmação de Senha:</label>
           <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
-          <div id="password-match" class="invalid-feedback">
-            As senhas não correspondem.
-          </div>
+          <div id="password-match" class="invalid-feedback">As senhas não correspondem.</div>
         </div>
         <button type="submit" id="register-btn" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
@@ -50,12 +49,37 @@
       var password = document.getElementById('password').value;
       var confirmPassword = document.getElementById('confirm-password').value;
       var passwordMatch = document.getElementById('password-match');
+      var passwordLength = document.getElementById('password-length');
+      var passwordRequirements = document.getElementById('password-requirements');
+
+      var formFields = document.querySelectorAll('#register-form input');
+      var formValid = true;
+      formFields.forEach(function(field) {
+        if (!field.value.trim()) {
+          field.classList.add('is-invalid');
+          formValid = false;
+        } else {
+          field.classList.remove('is-invalid');
+        }
+      });
 
       if (password !== confirmPassword) {
         passwordMatch.style.display = 'block';
-        return;
+        formValid = false;
       } else {
         passwordMatch.style.display = 'none';
+      }
+
+      var passwordRegex = /^(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+      if (!passwordRegex.test(password)) {
+        passwordRequirements.style.display = 'block';
+        formValid = false;
+      } else {
+        passwordRequirements.style.display = 'none';
+      }
+
+      if (!formValid) {
+        return;
       }
 
       successMessage.classList.remove('d-none'); 
@@ -68,6 +92,7 @@
         successMessage.classList.add('d-none'); 
       }, 3000); 
     });
+    
   </script>
 </body>
 </html>
