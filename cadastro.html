@@ -31,6 +31,9 @@
         <div class="form-group">
           <label for="confirm-password">Confirmação de Senha:</label>
           <input type="password" id="confirm-password" name="confirm-password" class="form-control" required>
+          <div id="password-match" class="invalid-feedback">
+            As senhas não correspondem.
+          </div>
         </div>
         <button type="submit" id="register-btn" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
@@ -39,16 +42,28 @@
       </div>
     </div>
   </div>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
   <script>
     document.getElementById('register-form').addEventListener('submit', function(event) {
       event.preventDefault(); 
       var successMessage = document.getElementById('success-message');
+      var password = document.getElementById('password').value;
+      var confirmPassword = document.getElementById('confirm-password').value;
+      var passwordMatch = document.getElementById('password-match');
+
+      if (password !== confirmPassword) {
+        passwordMatch.style.display = 'block';
+        return;
+      } else {
+        passwordMatch.style.display = 'none';
+      }
+
       successMessage.classList.remove('d-none'); 
       successMessage.textContent = 'Cadastro concluído!'; 
       
-      
+      var form = event.target;
+      form.reset();
+
       setTimeout(function() {
         successMessage.classList.add('d-none'); 
       }, 3000); 
