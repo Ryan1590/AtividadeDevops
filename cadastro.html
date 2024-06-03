@@ -11,7 +11,7 @@
   <div class="container d-flex justify-content-center align-items-center min-vh-100">
     <div class="register-container p-4 bg-white rounded shadow">
       <h1 class="mb-4">Cadastro de Novo Usuário</h1>
-      <form id="register-form">
+      <form id="register-form" action="login.html">
         <div class="form-group">
           <label for="fullname">Nome Completo:</label>
           <input type="text" id="fullname" name="fullname" class="form-control" required>
@@ -36,9 +36,6 @@
         </div>
         <button type="submit" id="register-btn" class="btn btn-primary btn-block">Cadastrar</button>
       </form>
-      <div id="success-message" class="alert alert-success mt-4 d-none" role="alert">
-        Cadastro concluído!
-      </div>
     </div>
   </div>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
@@ -82,8 +79,8 @@
         return;
       }
 
-      successMessage.classList.remove('d-none'); 
-      successMessage.textContent = 'Cadastro concluído!'; 
+      alert("Usuário cadastrado com sucesso!")
+      window.location.href = "login.html"
       
       var form = event.target;
       form.reset();
@@ -92,7 +89,7 @@
         successMessage.classList.add('d-none'); 
       }, 3000); 
     });
-    
+
   </script>
 </body>
 </html>
